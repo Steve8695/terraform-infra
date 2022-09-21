@@ -4,20 +4,39 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
-
+- master
 pool:
-  vmImage: ubuntu-latest
-
+  vmImage: 'ubuntu-latest'
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
-  displayName: 'Use Terraform latest'
-- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
-  displayName: 'Terraform : INIT'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: TerraformTaskV1@0
+  displayName: Terra Init
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: $(System.DefaultWorkingDirectory)
+    backendServiceArm: 'ServiceConnectionName'
+    backendAzureRmResourceGroupName: 'devops-tf'
+    backendAzureRmStorageAccountName: 'devopstfstate76'
+    backendAzureRmContainerName: 'config'
+    backendAzureRmKey: 'tf/terraform.tfstate'
+- task: TerraformTaskV1@0
+  displayName: Terra Destroy
+  inputs:
+    provider: 'azurerm'
+    command: 'destroy'
+    workingDirectory: $(System.DefaultWorkingDirectory)
+    environmentServiceNameAzureRM: 'ServiceConnectionName'
+- task: TerraformTaskV1@0
+  displayName: Terra Plan
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: $(System.DefaultWorkingDirectory)
+    environmentServiceNameAzureRM: 'ServiceConnectionName'
+- task: TerraformTaskV1@0
+  displayName: Terra Apply
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    workingDirectory: $(System.DefaultWorkingDirectory)
+    environmentServiceNameAzureRM: 'ServiceConnectionName'
