@@ -104,10 +104,6 @@ resource "azurerm_windows_virtual_machine_scale_set" "vmss" {
       subnet_id         = var.subnet
       load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.bpepool.id]
       primary = true
-      public_ip_address {
-        name = "pub1"
-        public_ip_prefix_id = azurerm_public_ip.vmss.id
-      }
     }
   }
 }
