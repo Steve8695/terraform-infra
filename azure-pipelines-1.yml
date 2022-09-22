@@ -18,7 +18,7 @@ steps:
   displayName: 'terraform init'
   inputs:
     command: init
-    workingDirectory: '$(System.DefaultWorkingDirectory)/_tf-azure-poc-CI/drop/Terraform'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
     backendType: azurerm
     backendServiceArm: 'Dev-sub'
     backendAzureRmSubscriptionId: '69c2c84c-6aa7-485f-879d-158288b4a49f'
@@ -31,14 +31,14 @@ steps:
 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
   displayName: 'terraform validate'
   inputs:
-    workingDirectory: '$(System.DefaultWorkingDirectory)/_tf-azure-poc-CI/drop/Terraform'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/_code'
 	
 steps:
 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
   displayName: 'terraform plan'
   inputs:
     command: plan
-    workingDirectory: '$(System.DefaultWorkingDirectory)/_tf-azure-poc-CI/drop/Terraform'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/_code'
     environmentServiceName: 'Dev-sub'
     providerAzureRmSubscriptionId: '69c2c84c-6aa7-485f-879d-158288b4a49f'
     commandOptions: '-var-file="dev.tfvars"'
@@ -48,7 +48,7 @@ steps:
   displayName: 'terraform apply'
   inputs:
     command: apply
-    workingDirectory: '$(System.DefaultWorkingDirectory)/_tf-azure-poc-CI/drop/Terraform'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/_code'
     environmentServiceName: 'Dev-sub'
     providerAzureRmSubscriptionId: '69c2c84c-6aa7-485f-879d-158288b4a49f'
     commandOptions: '-var-file="dev.tfvars"'
