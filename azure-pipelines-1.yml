@@ -42,7 +42,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/code'
           backendServiceArm: 'Dev-sub'
           backendAzureRmResourceGroupName: 'test-tstate-rg'
           backendAzureRmStorageAccountName: 'testcloudtfstate15439'
@@ -52,7 +52,7 @@ stages:
         inputs:
           provider: 'azurerm' 
           command: 'plan'
-          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/code'
           environmentServiceNameAzureRM: 'Dev-sub'
         
         
