@@ -17,7 +17,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/_code'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
           backendServiceArm: 'Dev-sub'
           backendAzureRmResourceGroupName: 'test-tstate-rg'
           backendAzureRmStorageAccountName: 'testcloudtfstate15439'
