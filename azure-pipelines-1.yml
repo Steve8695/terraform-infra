@@ -27,7 +27,7 @@ stages:
         inputs: 
           provider: 'azurerm'
           command: 'validate'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/_code'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
           environmentServiceNameAzureRM: 'Dev-sub'
 
 - stage: Terraform_plan 
