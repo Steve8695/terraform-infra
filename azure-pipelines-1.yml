@@ -1,0 +1,54 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- none
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+  displayName: 'Use Terraform latest'
+  
+steps:
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform init'
+  inputs:
+    command: init
+    workingDirectory: '$(System.DefaultWorkingDirectory)/_tf-azure-poc-CI/drop/Terraform'
+    backendType: azurerm
+    backendServiceArm: 'Dev-sub'
+    backendAzureRmSubscriptionId: '69c2c84c-6aa7-485f-879d-158288b4a49f'
+    backendAzureRmResourceGroupName: ' test-tstate-rg'
+    backendAzureRmStorageAccountName: testcloudtfstate15439
+    backendAzureRmContainerName: tfstate
+    backendAzureRmKey: test.devops.tfstate
+	
+steps:
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform validate'
+  inputs:
+    workingDirectory: '$(System.DefaultWorkingDirectory)/_tf-azure-poc-CI/drop/Terraform'
+	
+steps:
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform plan'
+  inputs:
+    command: plan
+    workingDirectory: '$(System.DefaultWorkingDirectory)/_tf-azure-poc-CI/drop/Terraform'
+    environmentServiceName: 'Dev-sub'
+    providerAzureRmSubscriptionId: '69c2c84c-6aa7-485f-879d-158288b4a49f'
+    commandOptions: '-var-file="dev.tfvars"'
+	
+steps:
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform apply'
+  inputs:
+    command: apply
+    workingDirectory: '$(System.DefaultWorkingDirectory)/_tf-azure-poc-CI/drop/Terraform'
+    environmentServiceName: 'Dev-sub'
+    providerAzureRmSubscriptionId: '69c2c84c-6aa7-485f-879d-158288b4a49f'
+    commandOptions: '-var-file="dev.tfvars"'
