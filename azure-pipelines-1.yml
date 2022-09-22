@@ -1,4 +1,9 @@
 name : Terraform_build
+
+parameters:
+  - name: commandOptions
+    default: '-var-file="dev.tfvars" -detailed-exitcode'
+    
 trigger:
  - none
 pool :
@@ -33,10 +38,6 @@ stages:
 - stage: Terraform_plan 
   jobs:
     - job: Terraform_plan
-      parameters:
-      - name: commandOptions
-        default: '-var-file="dev.tfvars" -detailed-exitcode'
-      
       steps:
 
       - task: TerraformInstaller@0
