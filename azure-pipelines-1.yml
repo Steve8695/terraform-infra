@@ -83,5 +83,6 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'apply'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/code'
           commandOptions: ${{ parameters.commandOptions }}
           environmentServiceNameAzureRM: 'Dev-sub'
