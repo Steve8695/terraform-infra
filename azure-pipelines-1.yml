@@ -2,7 +2,7 @@ name : Terraform_build
 
 parameters:
   - name: commandOptions
-    default: '-var-file="dev.tfvars" -detailed-exitcode'
+    default: '-var-file="dev.tfvars"'
     
 trigger:
  - none
