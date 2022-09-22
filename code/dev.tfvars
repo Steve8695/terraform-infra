@@ -1,0 +1,7 @@
+resource_group             = "local-test-rg"
+location                   = "eastus"
+vnet_name                  = "local-deploy"
+sg_name                    ="local-deply-sg"
+packer_resource_group_name ="myResourceGroup"
+packer_image_name          = "PackerImage"
+admin_password             ="Darkknight@123"
