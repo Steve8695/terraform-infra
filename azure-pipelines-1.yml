@@ -22,7 +22,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/code'
           backendServiceArm: 'Dev-sub'
           backendAzureRmResourceGroupName: 'test-tstate-rg'
           backendAzureRmStorageAccountName: 'testcloudtfstate15439'
@@ -32,7 +32,7 @@ stages:
         inputs: 
           provider: 'azurerm'
           command: 'validate'
-          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/code'
           environmentServiceNameAzureRM: 'Dev-sub'
 
 - stage: Terraform_plan 
@@ -73,7 +73,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/code'
           backendServiceArm: 'Dev-sub'
           backendAzureRmResourceGroupName: 'test-tstate-rg'
           backendAzureRmStorageAccountName: 'testcloudtfstate15439'
