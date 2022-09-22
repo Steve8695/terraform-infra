@@ -95,7 +95,7 @@ resource "azurerm_windows_virtual_machine_scale_set" "vmss" {
 
   source_image_id = data.azurerm_image.image.id
 
-  network_interface {
+  network_profile {
     name    = "terraformnetworkprofile"
     primary = true
 
