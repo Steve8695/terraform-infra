@@ -33,6 +33,10 @@ stages:
 - stage: Terraform_plan 
   jobs:
     - job: Terraform_plan
+      parameters:
+      - name: commandOptions
+        default: '-var-file="dev.tfvars" -detailed-exitcode'
+      
       steps:
 
       - task: TerraformInstaller@0
@@ -53,7 +57,7 @@ stages:
           provider: 'azurerm' 
           command: 'plan'
           workingDirectory: '$(System.DefaultWorkingDirectory)/code'
-          commandOptions: '-var-file="dev.tfvars'
+          commandOptions: ${{ parameters.commandOptions }}
           environmentServiceNameAzureRM: 'Dev-sub'
         
         
