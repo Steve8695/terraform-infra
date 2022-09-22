@@ -51,8 +51,9 @@ stages:
       - task: TerraformTaskV3@3
         inputs:
           provider: 'azurerm' 
-          command: 'plan -var-file="dev.tfvars'
+          command: 'plan'
           workingDirectory: '$(System.DefaultWorkingDirectory)/code'
+          commandOptions: '-var-file="dev.tfvars'
           environmentServiceNameAzureRM: 'Dev-sub'
         
         
