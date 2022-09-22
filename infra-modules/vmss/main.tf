@@ -95,15 +95,17 @@ resource "azurerm_windows_virtual_machine_scale_set" "vmss" {
 
   source_image_id = data.azurerm_image.image.id
 
-  network_profile {
-    name    = "terraformnetworkprofile"
+  network_interface {
+    name = "terraformnetworkprofile"
     primary = true
 
-    ip_configuration {
-      name              = "IPConfiguration"
-      subnet_id         = var.subnet
-      load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.bpepool.id]
-      primary = true
-    }
+      ip_configuration {
+        name = "IPConfiguration"
+        primary = true
+        subnet_id = var.subnet_id
+        load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.bpepool.id]
+      }
+
   }
+
 }
