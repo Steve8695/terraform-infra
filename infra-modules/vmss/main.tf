@@ -10,6 +10,7 @@ terraform {
   }
 }
 
+
 provider "azurerm" {
   features {}
 }
@@ -78,18 +79,14 @@ data "azurerm_image" "image" {
   resource_group_name = data.azurerm_resource_group.image.name
 }
 
-
-
-
-
 resource "azurerm_windows_virtual_machine_scale_set" "vmss" {
-  name                = "vmscaleset"
+  name                = "vmscaletest"
   location            = var.location
   resource_group_name = var.resource_group
-  admin_username       =  var.admin_user
-  admin_password       = var.admin_password
+  admin_username       = "devops"
+  admin_password       = "Darkknight@0987"
   instances = 2
-  computer_name_prefix = "devops"
+  computer_name_prefix = "Dev-"
   sku = "Standard_F2"
   os_disk {
     caching = "ReadWrite"
@@ -104,39 +101,13 @@ resource "azurerm_windows_virtual_machine_scale_set" "vmss" {
 
     ip_configuration {
       name              = "IPConfiguration"
-      subnet_id         = var.subnet
-      load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.bpepool.id]
+      subnet_id         = data.azurerm_subnet.subnet.id
+      load_balancer_backend_address_pool_ids = data.azurerm_lb_backend_address_pool.bpepool.id[*]
       primary = true
+      public_ip_address {
+        name = "pub1"
+        public_ip_prefix_id = azurerm_public_ip_prefix.task-pip-prefix.id
+      }
     }
   }
 }
-
-
-
-
-resource "azurerm_public_ip" "jumpbox" {
-  name                         = "jumpbox-public-ip"
-  location                     = var.location
-  resource_group_name          = var.resource_group
-  allocation_method            = "Static"
-  domain_name_label            = "${random_string.fqdn.result}-ssh"
-  tags = var.tags
-}
-
-resource "azurerm_network_interface" "jumpbox" {
-  name                = "jumpbox-nic"
-  location            = var.location
-  resource_group_name = var.resource_group
-
-  ip_configuration {
-    name                          = "IPConfiguration"
-    subnet_id                     = var.subnet
-    private_ip_address_allocation = "dynamic"
-    public_ip_address_id          = azurerm_public_ip.jumpbox.id
-  }
-
-  tags = var.tags
-}
-
-
-
