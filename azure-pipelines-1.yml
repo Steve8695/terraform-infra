@@ -83,4 +83,5 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'apply'
+          commandOptions: ${{ parameters.commandOptions }}
           environmentServiceNameAzureRM: 'Dev-sub'
