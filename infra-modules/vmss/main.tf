@@ -101,12 +101,12 @@ resource "azurerm_windows_virtual_machine_scale_set" "vmss" {
 
     ip_configuration {
       name              = "IPConfiguration"
-      subnet_id         = data.azurerm_subnet.subnet.id
-      load_balancer_backend_address_pool_ids = data.azurerm_lb_backend_address_pool.bpepool.id[*]
+      subnet_id         = var.subnet
+      load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.bpepool.id]
       primary = true
       public_ip_address {
         name = "pub1"
-        public_ip_prefix_id = azurerm_public_ip_prefix.task-pip-prefix.id
+        public_ip_prefix_id = azurerm_public_ip.vmss.id
       }
     }
   }
