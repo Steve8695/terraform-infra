@@ -6,9 +6,9 @@ pool :
 
 
 stages:
-- stage: Terraform_init
+- stage: Terraform_init_validate
   jobs:
-    - job: Terraform_init
+    - job: Terraform_init_validate
       steps:
       - task: TerraformInstaller@0
         inputs: 
