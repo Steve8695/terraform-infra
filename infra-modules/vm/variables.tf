@@ -38,7 +38,6 @@ variable "admin_user" {
   type = string
   default     = "azureuser"
 }
-}
 
 variable "admin_password" {
   description = "VM admin password"
