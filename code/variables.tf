@@ -32,4 +32,7 @@ variable "admin_password" {
   description = "The name of the resource group"
 
 }
-
+variable "size" {
+  description = "VM Size"
+  type = string
+}
