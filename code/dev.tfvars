@@ -1,6 +1,6 @@
-resource_group             = "local-test-rg"
+resource_group             = "vmss-eastus-rg"
 location                   = "eastus"
-vnet_name                  = "local-deploy"
+vnet_name                  = "vnet-deploy"
 sg_name                    = "local-deply-sg"
 packer_resource_group_name = "myResourceGroup"
 packer_image_name          = "PackerImagev4"
