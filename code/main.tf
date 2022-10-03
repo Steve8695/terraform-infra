@@ -26,3 +26,16 @@ module "vmss" {
   admin_password            = var.admin_password
   subnet                    = module.azurerm_virtual_network.subnet_id
   }
+
+    
+module "windows-vm" {
+  source                    = "github.com/Steve8695/terraform-infra.git//infra-modules//vm"
+  vm-name                   = "web-vm"
+  location                  = var.location
+  resource_group            = module.azurerm_resource_group.resource_group
+  packer_resource_group_name= var.packer_resource_group_name
+  packer_image_name         = var.packer_image_name
+  subnet_id                 = module.azurerm_virtual_network.subnet_id
+  size                      = var.size
+  admin_password            = var.admin_password
+  }
