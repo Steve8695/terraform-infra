@@ -30,7 +30,7 @@ module "vmss" {
     
 module "windows-vm" {
   source                    = "github.com/Steve8695/terraform-infra.git//infra-modules//vm"
-  vm-name                   = "web-vm"
+  vm-name                   = "web-vm-test1"
   location                  = var.location
   resource_group            = module.azurerm_resource_group.resource_group
   packer_resource_group_name= var.packer_resource_group_name
